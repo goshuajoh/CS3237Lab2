@@ -9,22 +9,19 @@ int servoPin;
 
 void setup() {
   Serial.begin(115200);
-
-  // Initialize APDS-9960 (configure I2C and initial settings)
   if (apds.init()) {
-    Serial.println("APDS-9960 initialization complete");
+    Serial.println("init");
   } else {
-    Serial.println("Something went wrong during APDS-9960 init!");
+    Serial.println("Error 1!");
   }
 
-  // Start running the APDS-9960 gesture sensor engine
   if (apds.enableGestureSensor(true)) {
-    Serial.println("Gesture sensor is now running");
+    Serial.println("running");
   } else {
-    Serial.println("Something went wrong during gesture sensor init!");
+    Serial.println("Error 2!");
   }
   servoPin = 18;
-  myservo.setPeriodHertz(50);  // Standard 50 Hz for servos
+  myservo.setPeriodHertz(50);
   myservo.attach(servoPin, 1000, 2000);
 }
 
@@ -72,9 +69,4 @@ void loop() {
   }
 
   delay(100);
-}
-// Function to move the servo to the specified position
-void moveServoTo(int position) {
-      myservo.write(position);
-      delay(1000);  // Give the servo time to move to the new position
 }
