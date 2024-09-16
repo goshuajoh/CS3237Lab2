@@ -3,13 +3,13 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
-const char* ssid = "ssid";  // I almost gave everyone free wifi
+const char* ssid = "ssid";  //I almost gave everyone free wifi
 const char* password = "password";  //I almost leaked my password here
 
 WebServer server(80);
 
-const int led = 13;  // Using GPIO 13 for the LED
-bool ledState = LOW;  // Variable to store the LED state
+const int led = 13;  //GPIO 13 for LED
+bool ledState = LOW;  //LED State
 
 void handleRoot() {
   digitalWrite(led, HIGH);
@@ -18,14 +18,11 @@ void handleRoot() {
 }
 
 void handleToggleLED() {
-  // Toggle the LED state
   ledState = !ledState;
   digitalWrite(led, ledState);
 
-  // Prepare the response message
   String message = (ledState == HIGH) ? "LED On" : "LED Off";
   
-  // Send the response
   server.send(200, "text/plain", message);
 }
 
@@ -54,12 +51,9 @@ void setup(void) {
   WiFi.begin(ssid, password);
   Serial.println("");
 
-  // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
-    Serial.print(".");
   }
-  Serial.println("");
   Serial.print("Connected to ");
   Serial.println(ssid);
   Serial.print("IP address: ");
@@ -75,7 +69,7 @@ void setup(void) {
     server.send(200, "text/plain", "This works as well");
   });
 
-  server.on("/toggleLED", handleToggleLED);  // Register the new endpoint
+  server.on("/toggleLED", handleToggleLED);
 
   server.onNotFound(handleNotFound);
 
@@ -85,5 +79,5 @@ void setup(void) {
 
 void loop(void) {
   server.handleClient();
-  delay(2);  // Allow the CPU to switch to other tasks
+  delay(2);
 }
