@@ -3,8 +3,8 @@
 #include <WebServer.h>
 #include <ESPmDNS.h>
 
-const char* ssid = "25LentorGoh";  // Replace with your smartphone's hotspot SSID
-const char* password = "Oct0b3r10!";  // Replace with your smartphone's hotspot password
+const char* ssid = "ssid";  // I almost gave everyone free wifi
+const char* password = "password";  //I almost leaked my password here
 
 WebServer server(80);
 
